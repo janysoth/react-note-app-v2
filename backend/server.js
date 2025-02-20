@@ -13,9 +13,10 @@ const port = process.env.PORT || 8000;
 const app = express();
 
 // middleware
+console.log("CLIENT_URL:", JSON.stringify(process.env.CLIENT_URL));
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL || "https://react-note-app-v2.vercel.app",
     credentials: true,
   })
 );
