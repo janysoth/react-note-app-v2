@@ -4,6 +4,7 @@ import Task from "../../models/tasks/TaskModel.js";
 
 // Create Task
 export const createTask = asyncHandler(async (req, res) => {
+  console.log("Request user:", req.user);
   try {
     const { title, description, dueDate, priority, status } = req.body;
 

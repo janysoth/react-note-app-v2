@@ -84,14 +84,22 @@ export const TasksProvider = ({ children }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${serverUrl}/task/create`, task);
+      const response = await axios.post(
+        `${serverUrl}/task/create`,
+        task,
+        {
+          withCredentials: true, // Allow cookies to be sent
+          headers: { "Content-Type": "application/json" }
+        }
+      );
 
       console.log("Task created: ", response.data);
 
       setTasks([...tasks, response.data]);
       toast.success("Task created successfully.");
     } catch (error) {
-      console.log("Error in creating a task.", error);
+      console.log("Error in creating a task:", error.response?.data || error);
+      toast.error(error.response?.data?.message || "Failed to create task");
     }
 
     setLoading(false);
