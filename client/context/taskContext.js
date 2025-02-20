@@ -5,7 +5,7 @@ import { useUserContext } from "./userContext";
 
 const TasksContext = createContext();
 
-const serverUrl = "https://react-note-app-v2.onrender.com";
+const serverUrl = "https://react-note-app-v2.onrender.com/api/v1";
 
 export const TasksProvider = ({ children }) => {
   const { user } = useUserContext();
