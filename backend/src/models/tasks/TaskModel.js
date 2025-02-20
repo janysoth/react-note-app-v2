@@ -5,7 +5,7 @@ const TaskSchema = new mongoose.Schema(
     title: {
       type: String,
       required: [true, "Please provide a title"],
-      //unique: true,
+      unique: true,
     },
 
     description: {
@@ -43,6 +43,9 @@ const TaskSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Ensure title is unique per user
+TaskSchema.index({ title: 1, user: 1 }, { unique: true });
 
 const Task = mongoose.model("Task", TaskSchema);
 

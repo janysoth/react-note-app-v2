@@ -34,9 +34,9 @@ export const createTask = asyncHandler(async (req, res) => {
     res.status(201).json(task);
   } catch (error) {
     console.log("Error in createTask:", error.message);
-    if (error.code === 11000) {
-      return res.status(400).json({ message: "Duplicate task title." });
-    }
+    // if (error.code === 11000) {
+    //   return res.status(400).json({ message: "Duplicate task title." });
+    // }
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
