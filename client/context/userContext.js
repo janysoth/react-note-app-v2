@@ -9,7 +9,7 @@ const UserContext = createContext();
 axios.defaults.withCredentials = true;
 
 export const UserContextProvider = ({ children }) => {
-  const serverUrl = "http://localhost:8000";
+  const serverUrl = "https://react-note-app-v2.onrender.com";
 
   const router = useRouter();
 
