@@ -4,16 +4,21 @@ import Task from "../../models/tasks/TaskModel.js";
 
 // Create Task
 export const createTask = asyncHandler(async (req, res) => {
-  console.log("Request user:", req.user);
   try {
     const { title, description, dueDate, priority, status } = req.body;
 
     if (!title || title.trim() === "") {
-      res.status(400).json({ message: "Title is required!" });
+      return res.status(400).json({ message: "Title is required!" });
     }
 
     if (!description || description.trim() === "") {
       return res.status(400).json({ message: "Description is required!" });
+    }
+
+    // Check if task with the same title already exists
+    const existingTask = await Task.findOne({ title });
+    if (existingTask) {
+      return res.status(400).json({ message: "A task with this title already exists." });
     }
 
     const task = new Task({
@@ -26,11 +31,13 @@ export const createTask = asyncHandler(async (req, res) => {
     });
 
     await task.save();
-
     res.status(201).json(task);
   } catch (error) {
-    console.log("Error in createTask: ", error.message);
-    res.status(500).json({ message: error.message });
+    console.log("Error in createTask:", error.message);
+    if (error.code === 11000) {
+      return res.status(400).json({ message: "Duplicate task title." });
+    }
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
