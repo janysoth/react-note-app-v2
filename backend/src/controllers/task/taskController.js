@@ -16,10 +16,10 @@ export const createTask = asyncHandler(async (req, res) => {
     }
 
     // Check if task with the same title already exists
-    const existingTask = await Task.findOne({ title });
-    if (existingTask) {
-      return res.status(400).json({ message: "A task with this title already exists." });
-    }
+    // const existingTask = await Task.findOne({ title });
+    // if (existingTask) {
+    //   return res.status(400).json({ message: "A task with this title already exists." });
+    // }
 
     const task = new Task({
       title,
